@@ -1,15 +1,23 @@
 package com.jpa.estudiante;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "credencial", schema = "demo", catalog = "")
-public class CredencialEntity {
+@Table(name = "credencial", schema = "registro", catalog = "")
+
+
+public class CredencialEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "idcredencial")
     private int idcredencial;
+    //@Size(max = 255)
+
     @Basic
     @Column(name = "username")
     private String username;
@@ -22,6 +30,14 @@ public class CredencialEntity {
     @Basic
     @Column(name = "idestudiante")
     private Integer idestudiante;
+
+    public CredencialEntity() {
+    }
+
+    public CredencialEntity(String useraname, String password) {
+        this.username = useraname;
+        this.password = password;
+    }
 
     public int getIdcredencial() {
         return idcredencial;

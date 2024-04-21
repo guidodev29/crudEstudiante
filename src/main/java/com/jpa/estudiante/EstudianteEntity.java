@@ -5,7 +5,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "estudiante", schema = "demo", catalog = "")
+@Table(name = "estudiante", schema = "registro", catalog = "")
+
+
 public class EstudianteEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -22,14 +24,24 @@ public class EstudianteEntity implements Serializable {
     @Column(name = "apellidos")
     private String apellidos;
 
+
+
+    //UNION 1-1
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="idestudiante")
+    @MapsId
+    private CredencialEntity credencial;
+
+
     public EstudianteEntity() {
     }
 
-    public EstudianteEntity(int idestudiante, String carnet, String nombres, String apellidos) {
+    public EstudianteEntity(int idestudiante, String carnet, String nombres, String apellidos, CredencialEntity credencial) {
         this.idestudiante = idestudiante;
         this.carnet = carnet;
         this.nombres = nombres;
         this.apellidos = apellidos;
+        this.credencial = credencial;
     }
 
     public int getIdestudiante() {

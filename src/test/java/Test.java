@@ -1,5 +1,6 @@
 import javax.persistence.EntityManager;
 
+import com.jpa.estudiante.CredencialEntity;
 import com.jpa.estudiante.EstudianteEntity;
 import org.apache.logging.log4j.*;
 import javax.persistence.EntityManagerFactory;
@@ -10,9 +11,9 @@ public class Test {
     static Logger log = LogManager.getRootLogger();
     public static void main(String[] args){
         //crearEstudiante();
-        //recuperarPorId();
+        recuperarPorId();
         //actualizarEstudiante();
-        eliminarEstudiante();
+        //eliminarEstudiante();
 
     }
     private static void crearEstudiante(){
@@ -20,7 +21,8 @@ public class Test {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
-        EstudianteEntity pro = new EstudianteEntity(1,"HG100721","tONY","gUIDO");
+        CredencialEntity cre = new CredencialEntity("am45g","1565456");
+        EstudianteEntity pro = new EstudianteEntity(1,"HG145621","Antonjio","Hernjhández",cre);
         em.persist(pro);
         tx.commit();
         System.out.println("#### NUEVO ESTUDIANTE INGRESADO ####");
@@ -28,6 +30,8 @@ public class Test {
         System.out.println("Nombres: " + pro.getNombres());
         System.out.println("Apellidos: " + pro.getApellidos());
         System.out.println("Carnet: " + pro.getCarnet());
+        System.out.println("Username: " + cre.getUsername());
+        System.out.println("Password: " + cre.getPassword());
         em.close();
     }
     private static void recuperarPorId(){
@@ -35,7 +39,8 @@ public class Test {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
-        EstudianteEntity pro = em.find(EstudianteEntity.class, 1);
+        CredencialEntity cre = em.find(CredencialEntity.class,4);
+        EstudianteEntity pro = em.find(EstudianteEntity.class, 4);
         tx.commit();
         if (pro != null) {
             System.out.println("####ESTUDIANTE ENCONTRADO####");
@@ -43,6 +48,8 @@ public class Test {
             System.out.println("Nombres: " + pro.getNombres());
             System.out.println("Apellidos: " + pro.getApellidos());
             System.out.println("Carnet: " + pro.getCarnet());
+            System.out.println("Username: " + cre.getUsername());
+            System.out.println("Password: " + cre.getPassword());
         } else {
             System.out.println("No se encontró ningún estudiante con ese ID");
         }
